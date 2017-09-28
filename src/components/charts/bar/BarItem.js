@@ -24,6 +24,15 @@ const BarItem = ({
     color,
     borderWidth,
     borderColor,
+    chartHeight,
+    chartWidth,
+    colors,
+    lastColorBar,
+    colorBubble,
+    indexNumb,
+    indexNumbNormalize,
+    layout,
+
 
     label,
     shouldRenderLabel,
@@ -38,44 +47,78 @@ const BarItem = ({
     const handleTooltip = e =>
         showTooltip(
             <BasicTooltip
-                id={`${data.id} - ${data.indexValue}`}
+                id={`${data.id}`}
                 value={data.value}
                 enableChip={true}
                 color={color}
                 theme={theme}
             />,
             e
-        )
+        );
 
-    return (
-        <g transform={`translate(${x}, ${y})`}>
-            <rect
-                width={width}
-                height={height}
-                rx={borderRadius}
-                ry={borderRadius}
-                fill={data.fill ? data.fill : color}
-                strokeWidth={borderWidth}
-                stroke={borderColor}
-                onMouseEnter={handleTooltip}
-                onMouseMove={handleTooltip}
-                onMouseLeave={hideTooltip}
-                onClick={onClick}
-            />
-            {shouldRenderLabel && (
-                <text
-                    x={width / 2}
-                    y={height / 2}
-                    textAnchor="middle"
-                    alignmentBaseline="central"
-                    style={{
-                        pointerEvents: 'none',
-                        fill: labelColor,
-                    }}
-                >
-                    {label}
-                </text>
-            )}
+        const handleToolTipIndex = e =>
+        showTooltip(
+            <BasicTooltip
+                id={`Index`}
+                value={data.data.indexNumb}
+                enableChip={true}
+                color={colors[colorBubble]}
+                theme={theme}
+            />,
+            e
+        )
+    return (   
+        <g>
+
+            
+                <g transform={`translate(${x}, ${y})`}>
+                <rect
+                    width={width}
+                    height={height}
+                    rx={borderRadius}
+                    ry={borderRadius}
+                    fill={data.fill ? data.fill : color}
+                    strokeWidth={borderWidth}
+                    stroke={borderColor}
+                    onMouseEnter={handleTooltip}
+                    onMouseMove={handleTooltip}
+                    onMouseLeave={hideTooltip}
+                    onClick={onClick}
+                />
+                {shouldRenderLabel && (
+                    <text
+                        x={width / 2}
+                        y={height / 2}
+                        textAnchor="middle"
+                        alignmentBaseline="central"
+                        style={{
+                            pointerEvents: 'none',
+                            fill: labelColor,
+                        }}
+                    >
+                        {label}
+                    </text>
+                )}  
+            </g>
+            {color === colors[lastColorBar] && layout === 'vertical' &&
+                <g transform={`translate(${x}, ${chartHeight})`}>
+                    <circle cx={0} cy={-indexNumbNormalize} r={10} fill={colors[colorBubble]} 
+                    onMouseEnter={handleToolTipIndex}
+                    onMouseMove={handleToolTipIndex}
+                    onMouseLeave={hideTooltip}  
+                    />
+                </g>
+            } 
+            {color === colors[lastColorBar] && layout === 'horizontal' &&
+                <g transform={`translate(${chartWidth}, ${y})`}>
+                    <circle cx={-indexNumbNormalize} cy={0} r={10} fill={colors[colorBubble]}  
+                        onMouseEnter={handleToolTipIndex}
+                        onMouseMove={handleToolTipIndex}
+                        onMouseLeave={hideTooltip}  
+                        />
+                </g>
+            } 
+
         </g>
     )
 }
