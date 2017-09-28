@@ -1,6 +1,6 @@
 {
-  "name": "nivo",
-  "version": "0.28.1",
+  "name": "hap-data",
+  "version": "0.0.1",
   "licenses": [
     {
       "type": "MIT",
@@ -9,11 +9,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/plouc/nivo"
+    "url": "https://github.com/miquelvincent/nivo.git"
   },
   "author": {
-    "name": "Raphaël Benitte",
-    "url": "https://github.com/plouc"
+    "name": "Vincent Miquel",
+    "url": "https://github.com/miquelvincent"
   },
   "keywords": [],
   "dependencies": {

@@ -1,4 +1,6 @@
-<img alt="nivo" src="https://raw.githubusercontent.com/plouc/nivo/master/nivo.png" width="216" height="68" />
+
+# ⚠️ This repository is a fork of [nivo](https://github.com/plouc/nivo.git) ⚠️
+All further developments were made to extend the possibilities of data visualisations. 
 
 [![License][license-image]][license-url]
 [![Travis CI][travis-image]][travis-url]
@@ -9,6 +11,8 @@
 it's built on top of d3.
 
 Several libraries already exist for React d3 integration, but just a few provide server side rendering ability and fully declarative charts.
+
+# Nivo documentation
 
 ## Features
 
