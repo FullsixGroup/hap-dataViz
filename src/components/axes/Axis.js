@@ -175,7 +175,7 @@ const Axis = ({
                 })}
             >
                 {interpolatedStyles => (
-                    <g>
+                    <g className={_position}>
                         {interpolatedStyles.map(({ key, style, data: tick }) => (
                             <AxisTick
                                 key={key}
