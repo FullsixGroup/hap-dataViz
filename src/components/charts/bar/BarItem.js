@@ -33,7 +33,6 @@ const BarItem = ({
     indexNumbNormalize,
     layout,
 
-
     label,
     shouldRenderLabel,
     labelColor,
@@ -49,29 +48,28 @@ const BarItem = ({
             <BasicTooltip
                 id={`${data.id}`}
                 value={data.value}
-                enableChip={true}
+                enableChip
                 color={color}
                 theme={theme}
             />,
             e
-        );
+        )
 
-        const handleToolTipIndex = e =>
+    const handleToolTipIndex = (index, e) =>
         showTooltip(
             <BasicTooltip
-                id={`Index`}
-                value={data.data.indexNumb}
-                enableChip={true}
+                id={'Index'}
+                value={data.data.indexNumb[`${index}`]}
+                enableChip
                 color={colors[colorBubble]}
                 theme={theme}
             />,
             e
         )
-    return (   
-        <g>
 
-            
-                <g transform={`translate(${x}, ${y})`}>
+    return (
+        <g>
+            <g transform={`translate(${x}, ${y})`}>
                 <rect
                     width={width}
                     height={height}
@@ -98,27 +96,46 @@ const BarItem = ({
                     >
                         {label}
                     </text>
-                )}  
+                )}
             </g>
-            {color === colors[lastColorBar] && layout === 'vertical' &&
-                <g transform={`translate(${x}, ${chartHeight})`}>
-                    <circle cx={0} cy={-indexNumbNormalize} r={10} fill={colors[colorBubble]} 
-                    onMouseEnter={handleToolTipIndex}
-                    onMouseMove={handleToolTipIndex}
-                    onMouseLeave={hideTooltip}  
-                    />
-                </g>
-            } 
-            {color === colors[lastColorBar] && layout === 'horizontal' &&
+
+            {color === colors[lastColorBar] &&
+                layout === 'vertical' &&
+                indexNumbNormalize.map((item, index) => {
+                    const posX =
+                        item === indexNumbNormalize[0] && indexNumbNormalize.length > 1
+                            ? x - width
+                            : x
+                    const i = index + 1
+                    return (
+                        <g key={i} transform={`translate(${posX}, ${chartHeight})`}>
+                            <circle
+                                cx={0}
+                                cy={-item}
+                                r={10}
+                                fill={colors[colorBubble]}
+                                onMouseEnter={e => handleToolTipIndex(index, e)}
+                                onMouseMove={e => handleToolTipIndex(index, e)}
+                                onMouseLeave={hideTooltip}
+                            />
+                        </g>
+                    )
+                })}
+
+            {color === colors[lastColorBar] &&
+            layout === 'horizontal' && (
                 <g transform={`translate(${chartWidth}, ${y})`}>
-                    <circle cx={-indexNumbNormalize} cy={0} r={10} fill={colors[colorBubble]}  
+                    <circle
+                        cx={-indexNumbNormalize}
+                        cy={0}
+                        r={10}
+                        fill={colors[colorBubble]}
                         onMouseEnter={handleToolTipIndex}
                         onMouseMove={handleToolTipIndex}
-                        onMouseLeave={hideTooltip}  
-                        />
+                        onMouseLeave={hideTooltip}
+                    />
                 </g>
-            } 
-
+            )}
         </g>
     )
 }

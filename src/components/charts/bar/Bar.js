@@ -154,10 +154,10 @@ const Bar = ({
         targetKey: 'data.fill',
     })
 
-    const lastColorBar = colors.length-2;
-    const colorBubble = colors.length-1;
+    const lastColorBar = keys.length - 1
+    const colorBubble = colors.length - 1
 
-    return (     
+    return (
         <Container isInteractive={isInteractive} theme={theme}>
             {({ showTooltip, hideTooltip }) => {
                 const commonProps = {
@@ -185,16 +185,21 @@ const Bar = ({
                                     y: spring(bar.y, springConfig),
                                     width: spring(bar.width, springConfig),
                                     height: spring(bar.height, springConfig),
-                                }
+                                },
                             }))}
                         >
                             {interpolatedStyles => (
                                 <g>
-                                    {interpolatedStyles.map(({key, style, data: bar }) => {
+                                    {interpolatedStyles.map(({ key, style, data: bar }) => {
                                         const baseProps = { ...bar, ...style }
-                                        const indexNumbNormalize =  
-                                            layout === 'vertical' ? (150+(bar.data.data.indexNumb-100))*height/300 :
-                                            (150+(bar.data.data.indexNumb-100))*width/300;
+                                        const indexNumbNormalize = [
+                                            ...bar.data.data.indexNumb.map(
+                                                _this =>
+                                                    layout === 'vertical'
+                                                        ? (150 + (_this - 100)) * height / 300
+                                                        : (150 + (_this - 100)) * width / 300
+                                            ),
+                                        ]
                                         return React.createElement(barComponent, {
                                             key,
                                             layout,
@@ -259,9 +264,7 @@ const Bar = ({
                             left={axisLeft}
                             {...motionProps}
                         >
-                        {
-    
-                        }
+                            {}
                         </Axes>
                         {bars}
                         <CartesianMarkers
