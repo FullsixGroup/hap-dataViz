@@ -46,7 +46,6 @@ export default class ResponsiveWrapper extends Component {
                 <Measure
                     bounds
                     onResize={contentRect => {
-                        console.log(contentRect)
                         this.setState({ dimensions: contentRect.bounds })
                     }}
                 >

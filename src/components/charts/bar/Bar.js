@@ -189,7 +189,7 @@ const Bar = ({
                             }))}
                         >
                             {interpolatedStyles => (
-                                <g>
+                                <g className="chartBarContainer">
                                     {interpolatedStyles.map(({ key, style, data: bar }) => {
                                         const baseProps = { ...bar, ...style }
                                         const indexNumbNormalize = [
