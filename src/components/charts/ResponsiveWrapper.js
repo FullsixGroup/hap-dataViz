@@ -21,19 +21,17 @@ export default class ResponsiveWrapper extends Component {
             height: -1,
         },
     }
-
     componentDidMount() {
         setTimeout(() => {
             const target = this.wrapper.querySelector('.bottom')
             if (target) {
-                this.wrapper.style.marginBottom = `${target.getBoundingClientRect().height}px`
+                this.wrapper.parentNode.style.marginBottom = `${target.getBoundingClientRect()
+                    .height}px`
             }
-        }, 200)
+        }, 150)
     }
-
     render() {
         const { width, height } = this.state.dimensions
-
         const shouldRender = width > 0 && height > 0
 
         return (
@@ -42,6 +40,7 @@ export default class ResponsiveWrapper extends Component {
                     this.wrapper = node
                 }}
                 style={{ width: '100%', height: '100%' }}
+                id={this.state.marginBottom}
             >
                 <Measure
                     bounds
